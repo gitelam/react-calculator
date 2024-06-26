@@ -7,7 +7,240 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1, h2, h3, h4, h5, h6{
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+
+}
+
+.rounded-scrollbar{
+  scrollbar-width: thin;
+  scrollbar-color: #343a40 #ffff;
+}
+
+.justify-start{
+  justify-content: start;
+  text-align: left;
+
+}
+
+.gap-1{
+  gap: 1rem;
+}
+
+.logs-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  overflow: auto;
+
+}
+
+.card-log {
+
+  /*justify-content-left*/
+  /*items start*/
+  display: flex;
+  flex-direction: column;
+  /*start direction*/
+  height: 25rem;
+  width: 20rem;
+
+  background-color: #4c5462;
+  border-radius: 0.5rem;
+  padding: 1rem;
+
+}
+
+.block-log{
+    width: 15rem;
+    text-align: right;
+    border-radius: 0.5rem;
+    background-color: #343a40;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+
+    letter-spacing: 0.07rem;
+
+}
+
+.block-log > .previous-operation{
+    text-align: right;
+    font-size: 0.9rem;
+    color: #9ea7ba;
+    padding: 0 0 1rem 0;
+}
+
+.block-log > .current-operation{
+    display: flex;
+    text-align: right;
+    color: white;
+    font-size: 1.2rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+.calc-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.flex{
+  display: flex;
+
+}
+
+.header-container{
+    width: 100%;
+    display: flex;
+
+}
+
+.logo-header{
+
+  display: flex;
+  align-items: center;
+  background-color: #343a40;
+  color: white;
+  border-radius: 0.5rem;
+  gap: 0.4rem;
+  padding: 0.6rem;
+
+}
+
+.logo-name{
+  display: flex;
+  font-weight: bold;
+  align-items: baseline;
+
+}
+
+.logo-name > h6{
+  font-weight: lighter;
+
+}
+
+.flex-col{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.display {
+  text-align: right;
+  border-radius: 0.5rem;
+  background-color: #343a40;
+  width: 90%;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+
+  letter-spacing: 0.07rem;
+
+}
+
+
+
+.display > .previous-operation{
+  text-align: right;
+  font-size: 0.9rem;
+  color: #9ea7ba;
+  padding: 0 0 1rem 0;
+}
+
+.display > .current-operation{
+  display: flex;
+  text-align: right;
+  color: white;
+  font-size: 1.2rem;
+  align-items: center;
+  justify-content: space-between;
+
+
+}
+
+.pad{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+.card {
+
+  background-color: #4c5462;
+  border-radius: 0.5rem;
+  padding: 1rem;
+
+  /*space y between elements*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /*space betweeen*/
+  gap: 1rem;
+
+
+}
+
+button{
+
+  /*remove all html native decorations*/
+  font-size: 1.2rem;
+  width: 4rem;
+
+  /*rounded style font*/
+  font-family: Arial;
+
+  border: none;
+  outline: none;
+  background: none;
+  background-color: #9ea7ba;
+  border-radius: 1.1rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: /*dark black*/ #1a1a1a;
+  cursor: pointer;
+
+}
+
+button:hover{
+  background-color: #6c757d;
+  color: white;
+}
+
+button:active{
+  background-color: #343a40;
+  color: white;
+}
+
+.delete-button{
+  font-size: 0.9rem;
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.delete-button:hover{
+  background-color: #ff1a1a;
+}
+
+.delete-button:active{
+  background-color: #cc0000;
 }
