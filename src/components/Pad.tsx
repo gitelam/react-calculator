@@ -26,6 +26,7 @@ export default function Pad({setExpression, setResult}: PadProps) {
 
   function handleClick(input: string){
 
+    makeOperation(input);
 
     if(isOperator(input))
     {
@@ -47,15 +48,15 @@ export default function Pad({setExpression, setResult}: PadProps) {
         return;
     }
 
+      there_is_operator = false;
       setExpression((prev) => prev + input);
 
 
-      makeOperation(input);
 
   }
 
   function makeOperation(input: any){
-
+    console.log(input);
     //if input is a number
     if(!isNaN(input))
     {
@@ -63,7 +64,8 @@ export default function Pad({setExpression, setResult}: PadProps) {
       number_string += input;
       //convert
       number = parseFloat(number_string);
-      return;
+
+      console.log(number);
     }
 
     //if is an operator
@@ -85,6 +87,10 @@ export default function Pad({setExpression, setResult}: PadProps) {
       number_string = "";
       return;
     }
+
+
+
+    setResult(result);
 
 
   }
