@@ -1,22 +1,26 @@
 import React from "react";
 
-export function Button({ input_value }: { input_value: any }){
+
+interface ButtonProps {
+  input_value: string;
+  onClick: () => void;
+}
+
+let is_operator = false;
+
+export function Button({ input_value, onClick }: ButtonProps){
 
   if(input_value === "DEL")
   {
     return(
-      <button className="delete-button">
+      <button onClick={onClick} className="delete-button">
         {input_value}
       </button>
     );
   }
 
-  function handleClick(value : any = "null"){
-    console.log("Clicked: ", value);
-  }
-
   return(
-    <button onClick={ ()=> handleClick({input_value})}>
+    <button onClick={onClick}>
       {input_value}
     </button>
   );

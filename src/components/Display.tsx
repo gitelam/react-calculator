@@ -13,10 +13,9 @@ export default function Display({expression, result}: { expression: string; resu
         {expression}
       </div>
 
-
       <div className="current-operation">
         <h6>
-          =
+        =
         </h6>
 
         <div>
