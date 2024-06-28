@@ -11,12 +11,14 @@ export default function Calculator(){
   const [expression, setExpression] = React.useState("");
   const [result, setResult] = React.useState(0);
 
+  //set max lenght of expression
+
 
   return(
     <div className="card flex-col">
         <Header />
         <Display expression={expression} result={result}/>
-        <Pad setExpression={setExpression}/>
+        <Pad setResult={setResult} setExpression={setExpression}/>
     </div>
   );
 

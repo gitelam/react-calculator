@@ -1,45 +1,108 @@
 import React  from 'react';
-
 import  {Button}  from "./Button";
-
+import exp from 'constants';
 
 interface PadProps {
   setExpression: React.Dispatch<React.SetStateAction<string>>;
+  setResult: React.Dispatch<React.SetStateAction<number>>;
 }
+
+let buttons = ["7", "8", "9", "+", "4", "5", "6", "/", "1", "2", "3", "*", "DEL", "0", ".", "-"];
 
 let there_is_operator = false;
 
-export default function Pad({setExpression}: PadProps) {
+function isOperator(input: string){
+  return input === "+" || input === "-" || input === "*" || input === "/";
+}
 
-  let buttons = ["7", "8", "9", "+", "4", "5", "6", "/", "1", "2", "3", "*", "DEL", "0", ".", "-"];
+function isDelete(input: string){ return input === "DEL"; }
+
+let result = 0;
+let number = 0;
+
+let number_string = "";
+
+export default function Pad({setExpression, setResult}: PadProps) {
 
   function handleClick(input: string){
 
-    //if input is DEL
-    if(input === "DEL")
-    {
-      setExpression((prev) => prev.slice(0, -1));
-      return;
-    }
 
-    //if input is an operator
-    if(input === "+" || input === "/" || input === "*" || input === "-")
+    if(isOperator(input))
     {
-      if(there_is_operator)
-      {
-        setExpression(prev => prev.slice(0, -2) + input + " ");
+
+        if(there_is_operator)
+        {
+          setExpression((prev) => prev.slice(0, -1) + input);
+          return;
+        }
+
+        there_is_operator = true;
+        setExpression((prev) => prev + input);
         return;
-      }
-      there_is_operator = true;
-      setExpression((prev) => prev + " " + input + " ");
-      return;
     }
 
-    there_is_operator = false;
+    if(isDelete(input))
+    {
+        setExpression((prev) => prev.slice(0, -1));
+        return;
+    }
 
-    setExpression((prev) => prev + input);
+      setExpression((prev) => prev + input);
+
+
+      makeOperation(input);
 
   }
+
+  function makeOperation(input: any){
+
+    //if input is a number
+    if(!isNaN(input))
+    {
+      //concat number
+      number_string += input;
+      //convert
+      number = parseFloat(number_string);
+      return;
+    }
+
+    //if is an operator
+    if(isOperator(input))
+    {
+      //if there is an operator
+      if(there_is_operator)
+      {
+        //calculate
+        // result = calculate(result, number, input);
+        //reset number
+        number = 0;
+        number_string = "";
+        return;
+      }
+      //if there is no operator
+      result = number;
+      number = 0;
+      number_string = "";
+      return;
+    }
+
+
+  }
+
+  //calculate
+  function calculate(result: number, number: number, operator: string){
+    switch(operator){
+      case "+":
+        return result + number;
+      case "-":
+        return result - number;
+      case "*":
+        return result * number;
+      case "/":
+        return result / number;
+    }
+  }
+
 
   return(
     <div className="pad">

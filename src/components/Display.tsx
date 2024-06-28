@@ -3,10 +3,10 @@ import React from "react";
 
 export default function Display({expression, result}: { expression: string; result: number;}){
 
-  console.log(expression);
+  // console.log(expression);
 
   return(
-    <div  className="display">
+    <div className="display">
 
       <div className="previous-operation">
         {/* {pad_input.expression} */}

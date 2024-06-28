@@ -155,6 +155,7 @@ code {
 .display > .previous-operation{
   text-align: right;
   font-size: 0.9rem;
+  height: 0.9rem;
   color: #9ea7ba;
   padding: 0 0 1rem 0;
 }
