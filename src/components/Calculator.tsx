@@ -10,7 +10,7 @@ export default function Calculator(){
 
   const [expression, setExpression] = React.useState("");
   const [result, setResult] = React.useState(0);
-
+console.log(expression);
   //set max lenght of expression
 
 

@@ -174,11 +174,9 @@ code {
 .pad{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  gap: 0.5rem;
   justify-content: center;
   align-items: center;
-
-
 }
 
 .card {

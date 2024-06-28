@@ -1,6 +1,5 @@
 import React  from 'react';
 import  {Button}  from "./Button";
-import exp from 'constants';
 
 interface PadProps {
   setExpression: React.Dispatch<React.SetStateAction<string>>;
@@ -11,12 +10,22 @@ let buttons = ["7", "8", "9", "+", "4", "5", "6", "/", "1", "2", "3", "*", "DEL"
 
 let there_is_operator = false;
 
-function isOperator(input: string){
-  return input === "+" || input === "-" || input === "*" || input === "/";
+function isOperator(input: string) {
+  const operators = new Set(["+", "-", "*", "/"]);
+  return operators.has(input);
+}
+function isNumericDigit(input:string) {
+  return !isNaN(Number(input)) && input.trim() !== '';
 }
 
-function isDelete(input: string){ return input === "DEL"; }
-
+function canAppendPeriod(expression:string) {
+  const lastSegment = expression.split(/[\+\-\*\/]/).pop();
+  return isNumericDigit(expression.slice(-1)) && !lastSegment?.includes('.');
+}
+function isLastCharNumber(expression:string) {
+  const lastChar = expression.slice(-1);
+  return !isNaN(parseInt(lastChar, 10));
+}
 let result = 0;
 let number = 0;
 
@@ -24,35 +33,25 @@ let number_string = "";
 
 export default function Pad({setExpression, setResult}: PadProps) {
 
-  function handleClick(input: string){
-
-    makeOperation(input);
-
-    if(isOperator(input))
-    {
-
-        if(there_is_operator)
-        {
-          setExpression((prev) => prev.slice(0, -1) + input);
-          return;
+  function handleClick(input: string) {
+    setExpression((prev) => {
+      if (input === "DEL") {
+        return prev.slice(0, -1);
+      } else if (isOperator(input)) {
+        // Prevent appending an operator if the last character is a period
+        if (prev.slice(-1) !== '.') {
+          return isLastCharNumber(prev) ? prev + input : prev.slice(0, -1) + input;
         }
-
-        there_is_operator = true;
-        setExpression((prev) => prev + input);
-        return;
-    }
-
-    if(isDelete(input))
-    {
-        setExpression((prev) => prev.slice(0, -1));
-        return;
-    }
-
-      there_is_operator = false;
-      setExpression((prev) => prev + input);
-
-
-
+        return prev; // Return the expression as is if the last character is a period
+      } else if (input === '.' && canAppendPeriod(prev)) {
+        // Append a period only if it's valid to do so
+        return prev + input;
+      } else if (input !== '.' || isNumericDigit(prev.slice(-1))) {
+        // Append input if it's not a period or if the last character is a digit
+        return prev + input;
+      }
+      return prev; // In all other cases, return the expression as is
+    });
   }
 
   function makeOperation(input: any){
