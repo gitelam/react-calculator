@@ -73,7 +73,7 @@ export default function Pad({setExpression, setResult}: PadProps) {
       if(there_is_operator)
       {
         //calculate
-        // result = calculate(result, number, input);
+        result = calculate(result, number, input) ;
         //reset number
         number = 0;
         number_string = "";
@@ -90,7 +90,7 @@ export default function Pad({setExpression, setResult}: PadProps) {
   }
 
   //calculate
-  function calculate(result: number, number: number, operator: string){
+  function calculate (result: number, number: number, operator: string){
     switch(operator){
       case "+":
         return result + number;
@@ -100,6 +100,8 @@ export default function Pad({setExpression, setResult}: PadProps) {
         return result * number;
       case "/":
         return result / number;
+      default:
+        return 0;
     }
   }
 
