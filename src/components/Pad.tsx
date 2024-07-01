@@ -10,89 +10,72 @@ interface PadProps {
 let buttons = ["7", "8", "9", "+", "4", "5", "6", "/", "1", "2", "3", "*", "DEL", "0", ".", "-"];
 
 let there_is_operator = false;
+let there_is_period = false;
+var num = "";
 
-function isOperator(input: string){
+function isOperator(input: string): boolean
+{
   return input === "+" || input === "-" || input === "*" || input === "/";
 }
 
-function isDelete(input: string){ return input === "DEL"; }
-
-let result = 0;
-let number = 0;
-
-let number_string = "";
-
 export default function Pad({setExpression, setResult}: PadProps) {
 
-  function handleClick(input: string){
+  function handleClick(input: string) {
 
-    makeOperation(input);
-
-    if(isOperator(input))
-    {
-
-        if(there_is_operator)
-        {
-          setExpression((prev) => prev.slice(0, -1) + input);
+    if(isOperator(input)){
+      if(there_is_operator){
+        return;
+      }
+      there_is_operator = true;
+      there_is_period = false;
+      makeOperation(input);
+    }else{
+      there_is_operator = false;
+      if(input === "."){
+        if(there_is_period){
           return;
         }
-
-        there_is_operator = true;
-        setExpression((prev) => prev + input);
-        return;
+        there_is_period = true;
+      }else{
+        if(input === "DEL"){
+          setExpression((prev) => {
+            return prev.slice(0, prev.length - 1);
+          });
+          return;
+      }else{
+        makeOperation(input);
+      }
     }
+  }
 
-    if(isDelete(input))
-    {
-        setExpression((prev) => prev.slice(0, -1));
-        return;
-    }
-
-      there_is_operator = false;
-      setExpression((prev) => prev + input);
-
-
+    setExpression((prev) => {
+      if(isOperator(input) && prev==""){
+            return prev;
+        }
+        return prev + input;
+    });
 
   }
 
-  function makeOperation(input: any){
-    console.log(input);
+
+
+  function makeOperation(input: string){
+
     //if input is a number
-    if(!isNaN(input))
-    {
-      //concat number
-      number_string += input;
-      //convert
-      number = parseFloat(number_string);
-
-      console.log(number);
-    }
-
-    //if is an operator
-    if(isOperator(input))
-    {
-      //if there is an operator
-      if(there_is_operator)
-      {
-        //calculate
-        result = calculate(result, number, input) ;
-        //reset number
-        number = 0;
-        number_string = "";
-        return;
-      }
-      //if there is no operator
-      result = number;
-      number = 0;
-      number_string = "";
+    if(!isOperator(input)){
+      num += input;
       return;
     }
 
 
+    let numA = Number(num);
 
-    setResult(result);
+    if(isOperator(input)){
+      console.log(input);
+    }
 
 
+    setResult(numA);
   }
 
   //calculate
