@@ -5,9 +5,9 @@ import './App.css';
 import { Icon } from '@iconify/react';
 
 import Calculator from "./components/Calculator";
+import List from "./components/MyReactList/List";
 
 function App() {
-
 
   return (
     <div className="App">
@@ -15,23 +15,9 @@ function App() {
 
         <div className="calc-container flex">
 
-          <Calculator  />
+          {/* <Calculator  /> */}
+          <List />
 
-        <div className="card-log">
-
-          <div className="flex justify-start">
-
-            <Icon icon="material-symbols:history" />
-            <h6>History</h6>
-
-          </div>
-
-
-          <div className="logs-container">
-            {/* <Log /> */}
-          </div>
-
-        </div>
         </div>
       </header>
 
@@ -40,9 +26,6 @@ function App() {
 
   );
 }
-
-
-
 
 
 export default App;

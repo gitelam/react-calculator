@@ -11,24 +11,47 @@ let buttons = ["7", "8", "9", "+", "4", "5", "6", "/", "1", "2", "3", "*", "DEL"
 
 let there_is_operator = false;
 let there_is_period = false;
-var num = "";
+let result: string = "0";
+let number = "0";
 
 function isOperator(input: string): boolean
 {
   return input === "+" || input === "-" || input === "*" || input === "/";
 }
 
+let res = 0;
+let operator = "";
+let another_string = "";
+let the_number = "";
+
 export default function Pad({setExpression, setResult}: PadProps) {
 
   function handleClick(input: string) {
+
+    console.log(input);
 
     if(isOperator(input)){
       if(there_is_operator){
         return;
       }
-      there_is_operator = true;
-      there_is_period = false;
-      makeOperation(input);
+      if(there_is_period){
+        return;
+        }else{
+          there_is_period = false;
+        }
+
+        there_is_operator = true;
+
+        operator = input;
+
+        res = calculate(result, number, input);
+        result = res.toString();
+        number = "";
+
+        another_string = result + operator;
+
+        setResult(res);
+
     }else{
       there_is_operator = false;
       if(input === "."){
@@ -36,6 +59,7 @@ export default function Pad({setExpression, setResult}: PadProps) {
           return;
         }
         there_is_period = true;
+        number += input;
       }else{
         if(input === "DEL"){
           setExpression((prev) => {
@@ -43,52 +67,40 @@ export default function Pad({setExpression, setResult}: PadProps) {
           });
           return;
       }else{
-        makeOperation(input);
+
+        the_number = input;
+        there_is_period = false;
+        number += input;
+
       }
     }
   }
 
     setExpression((prev) => {
-      if(isOperator(input) && prev==""){
+        if(isOperator(input) && prev == ""){
             return prev;
         }
-        return prev + input;
+        prev = another_string;
+        return prev + number;
     });
 
   }
 
 
 
-  function makeOperation(input: string){
-
-    //if input is a number
-    if(!isOperator(input)){
-      num += input;
-      return;
-    }
-
-
-    let numA = Number(num);
-
-    if(isOperator(input)){
-      console.log(input);
-    }
-
-
-    setResult(numA);
-  }
-
   //calculate
-  function calculate (result: number, number: number, operator: string){
+  function calculate (result: string, number_p: string, operator: string): number{
     switch(operator){
       case "+":
-        return result + number;
+        return parseFloat(result) + parseFloat(number_p);
       case "-":
-        return result - number;
+        return parseFloat(result) - parseFloat(number_p);
       case "*":
-        return result * number;
+        return parseFloat(result) * parseFloat(number_p);
       case "/":
-        return result / number;
+        if(result === "0"){
+          result = "1";};
+        return parseFloat(number_p)/parseFloat(result)  ;
       default:
         return 0;
     }

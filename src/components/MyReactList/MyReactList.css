@@ -1,0 +1,13 @@
+.list-item{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #9df1;
+    border-radius: 20rem;
+}
+
+.actions{
+    gap: 10px;
+}
